@@ -20,9 +20,17 @@ const MessageItem: React.FC<Props> = ({ messageData, activeDataID }) => {
 	if (messageData[0] === activeDataID) {
 		isActive = true;
 	}
+	const checkViewport = () => {
+		if (window.innerWidth < 640) {
+			setMobile(true);
+		} else {
+			setMobile(false);
+		}
+	};
 
 	useEffect(() => {
-		if (window.innerWidth < 768) setMobile(true);
+		window.addEventListener("resize", checkViewport);
+		return () => window.removeEventListener("resize", checkViewport);
 	}, []);
 
 	return (
